@@ -1,0 +1,37 @@
+name: Quality checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Check JavaScript syntax
+        run: |
+          node --check server.js
+          node --check public/app.js
+      - name: Install dependencies
+        run: npm install
+      - name: Verify health endpoint
+        run: |
+          PORT=3187 npm start > /tmp/smartcsv.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill $SERVER_PID 2>/dev/null || true' EXIT
+          for attempt in $(seq 1 20); do
+            if curl --fail --silent http://127.0.0.1:3187/api/health; then
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/smartcsv.log
+          exit 1
