@@ -85,3 +85,6 @@ body.light dialog{background:#fff;color:#27334b;border-color:#dce2ee}
 body.light .dialog-note{background:#f5f6fb;color:#63718b}
 body.light .dialog-head button{color:#63718b}
 @media(max-width:760px){body.light .sidebar{box-shadow:15px 0 40px #1b26431c}}
+
+/* Data explorer tools */
+.table-tools{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 14px}.table-search{display:flex;align-items:center;gap:10px;min-width:0;flex:1;max-width:420px;padding:0 13px;border:1px solid var(--line);border-radius:12px;background:var(--panel);color:var(--muted)}.table-search>span{font-size:22px}.table-search input{width:100%;min-width:0;padding:12px 0;border:0;outline:0;background:transparent;color:var(--text)}.table-search input::placeholder{color:var(--muted)}.export-btn{white-space:nowrap}.missing-value{color:#d6a96b}.table-tools[hidden]{display:none!important}@media(max-width:520px){.table-tools{align-items:stretch;flex-direction:column}.table-search{max-width:none}.export-btn{width:100%}}
